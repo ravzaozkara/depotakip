@@ -196,6 +196,12 @@ export default function AdminPanel() {
                   Toplam: {filteredReservations.length}
                 </span>
               </div>
+              <a
+                href="/admin/qr-generator"
+                className="bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded-lg font-semibold transition-colors"
+              >
+                QR Kodlar
+              </a>
               <button
                 onClick={() => setIsAuthenticated(false)}
                 className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg font-semibold transition-colors"
