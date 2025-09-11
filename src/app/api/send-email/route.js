@@ -17,7 +17,7 @@ export async function POST(request) {
       reservationId 
     } = body;
 
-    // Admin'e bildirim emaili
+    // Sadece admin'e bildirim emaili gönder
     const adminEmail = await resend.emails.send({
       from: process.env.EMAIL_FROM || 'onboarding@resend.dev',
       to: [process.env.EMAIL_TO || 'admin@example.com'],
@@ -51,38 +51,9 @@ export async function POST(request) {
       `,
     });
 
-    // Müşteriye onay emaili (isteğe bağlı)
-    const customerEmail = await resend.emails.send({
-      from: process.env.EMAIL_FROM || 'onboarding@resend.dev',
-      to: [`${customerName.toLowerCase().replace(' ', '.')}@example.com`], // Gerçek email adresi gerekli
-      subject: `Rezervasyon Onayı - ${productName}`,
-      html: `
-        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-          <h2 style="color: #059669;">Rezervasyon Onayı</h2>
-          
-          <p>Merhaba ${customerName},</p>
-          
-          <p>Rezervasyonunuz başarıyla alınmıştır. Detaylar aşağıdaki gibidir:</p>
-
-          <div style="background-color: #f0fdf4; padding: 20px; border-radius: 8px; margin: 20px 0;">
-            <p><strong>Rezervasyon ID:</strong> #${reservationId}</p>
-            <p><strong>Ürün:</strong> ${productName}</p>
-            <p><strong>Miktar:</strong> ${quantity} adet</p>
-            <p><strong>Teslim Alma Tarihi:</strong> ${new Date(pickupDate).toLocaleDateString('tr-TR')}</p>
-            <p><strong>Teslim Etme Tarihi:</strong> ${new Date(returnDate).toLocaleDateString('tr-TR')}</p>
-          </div>
-
-          <p>Herhangi bir sorunuz olması durumunda bizimle iletişime geçebilirsiniz.</p>
-          
-          <p>İyi günler!</p>
-        </div>
-      `,
-    });
-
     return NextResponse.json({ 
       success: true, 
-      adminEmailId: adminEmail.data?.id,
-      customerEmailId: customerEmail.data?.id 
+      adminEmailId: adminEmail.data?.id
     });
 
   } catch (error) {
