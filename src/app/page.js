@@ -125,8 +125,38 @@ export default function DepoTakip() {
           return_date: formData.returnDate,
           status: 'Aktif'
         }])
+        .select()
 
       if (error) throw error
+
+      // Email bildirimini gönder
+      try {
+        const emailResponse = await fetch('/api/send-email', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            customerName: formData.customerName,
+            customerPhone: formData.customerPhone,
+            customerUnit: finalUnit,
+            productName: currentProduct.name,
+            quantity: formData.quantity,
+            pickupDate: formData.pickupDate,
+            returnDate: formData.returnDate,
+            reservationId: data[0].id
+          }),
+        })
+
+        if (emailResponse.ok) {
+          console.log('Email başarıyla gönderildi')
+        } else {
+          console.error('Email gönderme hatası')
+        }
+      } catch (emailError) {
+        console.error('Email API hatası:', emailError)
+        // Email hatası rezervasyonu etkilemez
+      }
 
       showSuccessMessage('Rezervasyon başarıyla oluşturuldu!')
       setIsModalOpen(false)
@@ -190,7 +220,7 @@ export default function DepoTakip() {
           <div className="flex justify-between items-center">
             <div className="flex items-center space-x-3">
               <div className="bg-green-500 p-3 rounded-lg">
-                <svg className="w-8 h-8 text-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
                 </svg>
               </div>
@@ -218,13 +248,13 @@ export default function DepoTakip() {
                 placeholder="Ürün ara..." 
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="text-gray-900 w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors"
+                className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors"
               />
             </div>
             <select 
               value={categoryFilter}
               onChange={(e) => setCategoryFilter(e.target.value)}
-              className="text-gray-800 px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors"
+              className="px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors"
             >
               <option value="">Tüm Kategoriler</option>
               <option value="Elektronik">Elektronik</option>
@@ -235,7 +265,7 @@ export default function DepoTakip() {
             <select 
               value={stockFilter}
               onChange={(e) => setStockFilter(e.target.value)}
-              className="text-gray-800 px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors"
+              className="px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors"
             >
               <option value="">Tüm Stoklar</option>
               <option value="available">Stokta Var</option>
@@ -253,24 +283,18 @@ export default function DepoTakip() {
             const stockStatus = availableStock === 0 ? 'out' : availableStock <= 5 ? 'low' : 'available'
             const stockColor = stockStatus === 'out' ? 'text-red-600' : stockStatus === 'low' ? 'text-yellow-600' : 'text-green-600'
             const stockBg = stockStatus === 'out' ? 'bg-red-100' : stockStatus === 'low' ? 'bg-yellow-100' : 'bg-green-100'
-            
-            // Kategori renkleri
-            const categoryColors = {
-              'Elektronik': 'bg-blue-100 text-blue-700',
-              'Giyim': 'bg-pink-100 text-pink-700',
-              'Ev & Yaşam': 'bg-purple-100 text-purple-700',
-              'Spor': 'bg-orange-100 text-orange-700'
-            }
-            const categoryColor = categoryColors[product.category] || 'bg-gray-100 text-gray-700'
 
             return (
               <div key={product.id} className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-lg hover:border-green-200 transition-all duration-300">
                 <img src={product.image} alt={product.name} className="w-full h-48 object-cover" />
                 <div className="p-6">
-                  <h3 className="text-lg font-semibold text-gray-800 mb-3">{product.name}</h3>
+                  <div className="flex justify-between items-start mb-3">
+                    <h3 className="text-lg font-semibold text-gray-800">{product.name}</h3>
+                    <span className="text-sm px-2 py-1 bg-green-100 text-green-700 rounded-full">{product.category}</span>
+                  </div>
                   
                   <div className="flex justify-between items-center mb-4">
-                    <span className={`text-sm px-2 py-1 ${categoryColor} rounded-full`}>{product.category}</span>
+                    <span className="text-2xl font-bold text-green-600">{product.price.toLocaleString('tr-TR')} ₺</span>
                     <div className="text-right">
                       <div className={`text-sm ${stockColor} font-semibold`}>
                         {availableStock > 0 ? `${availableStock} adet` : 'Stokta Yok'}
