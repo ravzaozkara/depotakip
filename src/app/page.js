@@ -293,9 +293,9 @@ export default function DepoTakip() {
                     <span className="text-sm px-2 py-1 bg-green-100 text-green-700 rounded-full">{product.category}</span>
                   </div>
                   
-                  <div className="flex justify-between items-center mb-4">
-                    <span className="text-2xl font-bold text-green-600">{product.price.toLocaleString('tr-TR')} ₺</span>
-                    <div className="text-right">
+                  <div className="mb-4">
+                    <p className="text-sm text-gray-600 mb-3">{product.description || 'Bu ürün için açıklama mevcut değil.'}</p>
+                    <div className="flex justify-between items-center">
                       <div className={`text-sm ${stockColor} font-semibold`}>
                         {availableStock > 0 ? `${availableStock} adet` : 'Stokta Yok'}
                       </div>

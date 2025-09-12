@@ -228,18 +228,17 @@ export default function QRProductPage() {
               <span className="text-sm px-3 py-1 bg-emerald-100 text-emerald-700 rounded-full">{product.category}</span>
             </div>
             
-            <div className="flex justify-between items-center mb-6">
-              <div className="text-right">
-                <div className={`text-lg font-semibold ${
-                  stockStatus === 'out' ? 'text-red-600' : 
-                  stockStatus === 'low' ? 'text-yellow-600' : 'text-green-600'
-                }`}>
-                  {availableStock > 0 ? `${availableStock} adet mevcut` : 'Stokta Yok'}
-                </div>
-                {reservedCount > 0 && (
-                  <div className="text-sm text-gray-500">{reservedCount} adet rezerve</div>
-                )}
+            <div className="mb-6">
+              <p className="text-gray-600 mb-4">{product.description || 'Bu ürün için açıklama mevcut değil.'}</p>
+              <div className={`text-lg font-semibold ${
+                stockStatus === 'out' ? 'text-red-600' : 
+                stockStatus === 'low' ? 'text-yellow-600' : 'text-green-600'
+              }`}>
+                {availableStock > 0 ? `${availableStock} adet mevcut` : 'Stokta Yok'}
               </div>
+              {reservedCount > 0 && (
+                <div className="text-sm text-gray-500">{reservedCount} adet rezerve</div>
+              )}
             </div>
 
             <button
