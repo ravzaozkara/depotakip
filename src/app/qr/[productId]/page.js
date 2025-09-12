@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react'
 import { supabase } from '../../../../lib/supabase'
 import { useParams } from 'next/navigation'
+import Link from 'next/link'
 
 export default function QRProductPage() {
   const params = useParams()
@@ -183,12 +184,12 @@ export default function QRProductPage() {
         <div className="bg-white p-8 rounded-xl shadow-lg border border-gray-200 max-w-md w-full text-center">
           <h1 className="text-2xl font-bold text-red-600 mb-4">Ürün Bulunamadı</h1>
           <p className="text-gray-600 mb-6">QR kod geçersiz veya ürün silinmiş olabilir.</p>
-          <a 
+          <Link 
             href="/"
             className="bg-emerald-500 hover:bg-emerald-600 text-white px-6 py-3 rounded-lg font-semibold transition-colors"
           >
             Ana Sayfaya Dön
-          </a>
+          </Link>
         </div>
       </div>
     )
