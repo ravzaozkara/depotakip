@@ -225,14 +225,9 @@ export default function DepoTakip() {
                 </svg>
               </div>
               <div>
-                <h1 className="text-3xl font-bold text-gray-800">Depo Takip</h1>
+                <h1 className="text-3xl font-bold text-gray-800">İyiliğin Geleceği Depo Ürün Envanteri</h1>
                 <p className="text-gray-600">Ürün Rezervasyon Sistemi</p>
               </div>
-            </div>
-            <div className="bg-green-100 px-4 py-2 rounded-lg">
-              <span className="text-green-800 font-semibold">
-                Toplam Rezervasyon: {reservations.length}
-              </span>
             </div>
           </div>
         </div>
@@ -248,13 +243,13 @@ export default function DepoTakip() {
                 placeholder="Ürün ara..." 
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors"
+                className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors text-black"
               />
             </div>
             <select 
               value={categoryFilter}
               onChange={(e) => setCategoryFilter(e.target.value)}
-              className="px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors"
+              className="px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors text-black"
             >
               <option value="">Tüm Kategoriler</option>
               <option value="Elektronik">Elektronik</option>
@@ -265,7 +260,7 @@ export default function DepoTakip() {
             <select 
               value={stockFilter}
               onChange={(e) => setStockFilter(e.target.value)}
-              className="px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors"
+              className="px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors text-black"
             >
               <option value="">Tüm Stoklar</option>
               <option value="available">Stokta Var</option>
@@ -289,12 +284,12 @@ export default function DepoTakip() {
                 <img src={product.image} alt={product.name} className="w-full h-48 object-cover" />
                 <div className="p-6">
                   <div className="flex justify-between items-start mb-3">
-                    <h3 className="text-lg font-semibold text-gray-800">{product.name}</h3>
+                    <h3 className="text-lg font-semibold text-black">{product.name}</h3>
                     <span className="text-sm px-2 py-1 bg-green-100 text-green-700 rounded-full">{product.category}</span>
                   </div>
                   
                   <div className="mb-4">
-                    <p className="text-sm text-gray-600 mb-3">{product.description || 'Bu ürün için açıklama mevcut değil.'}</p>
+                    <p className="text-sm text-black mb-3">{product.description || 'Bu ürün için açıklama mevcut değil.'}</p>
                     <div className="flex justify-between items-center">
                       <div className={`text-sm ${stockColor} font-semibold`}>
                         {availableStock > 0 ? `${availableStock} adet` : 'Stokta Yok'}
