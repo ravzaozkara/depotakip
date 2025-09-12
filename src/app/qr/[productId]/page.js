@@ -23,11 +23,6 @@ export default function QRProductPage() {
     quantity: 1
   })
 
-  useEffect(() => {
-    loadProduct()
-    loadReservations()
-  }, [productId, loadProduct])
-
   const loadProduct = async () => {
     try {
       const { data, error } = await supabase
@@ -59,6 +54,11 @@ export default function QRProductPage() {
       console.error('Rezervasyonlar yüklenirken hata:', error)
     }
   }
+
+  useEffect(() => {
+    loadProduct()
+    loadReservations()
+  }, [productId])
 
   const getReservedCount = (productId) => {
     return reservations

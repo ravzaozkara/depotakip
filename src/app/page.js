@@ -25,12 +25,6 @@ export default function DepoTakip() {
     quantity: 1
   })
 
-  // Verileri yükle
-  useEffect(() => {
-    loadProducts()
-    loadReservations()
-  }, [loadProducts])
-
   const loadProducts = async () => {
     try {
       const { data, error } = await supabase
@@ -61,6 +55,12 @@ export default function DepoTakip() {
       console.error('Rezervasyonlar yüklenirken hata:', error)
     }
   }
+
+  // Verileri yükle
+  useEffect(() => {
+    loadProducts()
+    loadReservations()
+  }, [])
 
   // Rezervasyon sayısını hesapla
   const getReservedCount = (productId) => {
