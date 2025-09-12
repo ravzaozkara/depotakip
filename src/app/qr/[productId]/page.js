@@ -26,7 +26,7 @@ export default function QRProductPage() {
   useEffect(() => {
     loadProduct()
     loadReservations()
-  }, [productId])
+  }, [productId, loadProduct])
 
   const loadProduct = async () => {
     try {

@@ -5,7 +5,6 @@ import { supabase } from '../../../../lib/supabase'
 export default function QRGenerator() {
   const [products, setProducts] = useState([])
   const [loading, setLoading] = useState(true)
-  const [selectedProduct, setSelectedProduct] = useState(null)
 
   useEffect(() => {
     loadProducts()

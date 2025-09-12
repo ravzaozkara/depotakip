@@ -29,7 +29,7 @@ export default function DepoTakip() {
   useEffect(() => {
     loadProducts()
     loadReservations()
-  }, [])
+  }, [loadProducts])
 
   const loadProducts = async () => {
     try {

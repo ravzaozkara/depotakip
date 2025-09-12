@@ -182,7 +182,7 @@ export default function UpdateProducts() {
                 </div>
                 <div className="ml-3">
                   <p className="text-sm text-yellow-700">
-                    <strong>Important:</strong> Make sure the 'description' column exists in the products table before updating.
+                    <strong>Important:</strong> Make sure the &apos;description&apos; column exists in the products table before updating.
                   </p>
                 </div>
               </div>
