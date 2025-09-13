@@ -250,10 +250,13 @@ export default function DepoTakip() {
               className="px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors text-black"
             >
               <option value="">Tüm Kategoriler</option>
-              <option value="Elektronik">Elektronik</option>
-              <option value="Giyim">Giyim</option>
-              <option value="Ev & Yaşam">Ev & Yaşam</option>
-              <option value="Spor">Spor</option>
+              <option value="Boyama">Boyama</option>
+              <option value="Atölye">Atölye</option>
+              <option value="Kermes">Kermes</option>
+              <option value="Hediye">Hediye</option>
+              <option value="Kırtasiye">Kırtasiye</option>
+              <option value="Özel Seri">Özel Seri</option>
+              <option value="Diğer">Süsleme</option>
             </select>
             <select 
               value={stockFilter}
